@@ -1,0 +1,14 @@
+language: generic
+
+dist: trusty
+
+services:
+  - docker
+
+matrix:
+  include:
+    - env: DOCKER_IMAGE="latex"
+
+script:
+  - chmod +x build.sh
+  - ./build.sh $DOCKER_IMAGE
