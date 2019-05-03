@@ -7,3 +7,4 @@ This repository is a list of several Dockerfile for different purpose.
 ## Images :
 
 * [Latex](./latex/README.md)
+* [Serverless GO](./serverless-go/README.md)
