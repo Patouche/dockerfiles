@@ -8,7 +8,9 @@ services:
 matrix:
   include:
     - env: DOCKER_IMAGE="latex"
+    - env: DOCKER_IMAGE="serverless-go"
 
 script:
-  - chmod +x build.sh
+  - chmod +x *.sh
   - ./build.sh $DOCKER_IMAGE
+  - ./deploy.sh $DOCKER_IMAGE
