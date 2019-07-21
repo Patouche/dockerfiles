@@ -8,5 +8,5 @@ This repository is a list of several Dockerfile for different purpose.
 
 * [Latex](./latex/README.md)
 * [Serverless GO](./serverless-go/README.md)
-* [sonarqube](./sonarqube/README.md)
-* [K8S Manage](./k8s-manage/README.md)
+* [SonarQube](./sonarqube/README.md)
+* [Kube Manage](./kube-manage/README.md)
