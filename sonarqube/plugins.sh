@@ -65,7 +65,7 @@ function __install_plugin() {
         echo "  -> Install plugin : ${pb} (${1})";
         curl -sSL -o "${SONARQUBE_HOME}/extensions/plugins/${pb}" "${1}";
     else
-        echo "  -> Skip to install plugin : ${pb}";
+        echo "  -> Skip to install plugin (plugin already installed) : ${pb}";
     fi 
 }
 

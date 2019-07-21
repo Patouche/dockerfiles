@@ -37,7 +37,7 @@ deploy: test ## Deploy a docker image
 deploy-ci: test
 	@echo "==> Deploy CI Image : $(img)"
 	@( \
-		echo "${DOCKER_PASSWORD}" | docker login -u "$(DOCKER_HUB_USER)" --password-stdin; \
-		docker push "$(DOCKER_HUB_USER)/$(img):$$(cat $(img)/version.txt); \
-		docker push "$(DOCKER_HUB_USER)/$(img):latest; \
+		echo "$${DOCKER_PASSWORD}" | docker login -u "$(DOCKER_HUB_USER)" --password-stdin; \
+		docker push "$(DOCKER_HUB_USER)/$(img):$$(cat $(img)/version.txt)"; \
+		docker push "$(DOCKER_HUB_USER)/$(img):latest"; \
 	)

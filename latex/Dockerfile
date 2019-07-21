@@ -51,11 +51,11 @@ RUN \
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod ugo+x /usr/local/bin/docker-entrypoint.sh
 
-
 WORKDIR ${LATEX_HOME}
 USER ${LATEX_USER}
 
 RUN \
   tlmgr init-usertree && \
   tlmgr update --self
+
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

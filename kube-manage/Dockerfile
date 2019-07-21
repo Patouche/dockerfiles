@@ -20,13 +20,13 @@ RUN \
     chmod +x ${TARGET_BIN_DIR}/kubectl
 
 RUN \
-    curl -sSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar xvz && \
+    curl -sSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar xz && \
     install -m 755 linux-amd64/helm ${TARGET_BIN_DIR}/helm && \
     install -m 755 linux-amd64/tiller ${TARGET_BIN_DIR}/tiller && \
     rm -rf linux-amd64
 
 RUN \
-    curl -sSL https://github.com/rancher/cli/releases/download/v${RANCHER_CLI_VERSION}/rancher-linux-amd64-v${RANCHER_CLI_VERSION}.tar.gz | tar xvz && \
+    curl -sSL https://github.com/rancher/cli/releases/download/v${RANCHER_CLI_VERSION}/rancher-linux-amd64-v${RANCHER_CLI_VERSION}.tar.gz | tar xz && \
     install -m 755 rancher-v${RANCHER_CLI_VERSION}/rancher ${TARGET_BIN_DIR}/rancher && \
     rm -rf rancher-v${RANCHER_CLI_VERSION}
 

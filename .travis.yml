@@ -10,7 +10,8 @@ matrix:
     - env: DOCKER_IMAGE="latex"
     - env: DOCKER_IMAGE="serverless-go"
     - env: DOCKER_IMAGE="kube-manage"
+    - env: DOCKER_IMAGE="sonarqube"
 
 script:
-  - if [[ "${TRAVIS_BRANCH}" != 'master' ]] ; then make test img=$DOCKER_IMAGE; fi
-  - if [[ "${TRAVIS_BRANCH}" == 'master' ]] ; then make deploy-ci img=$DOCKER_IMAGE; fi
+  - if [[ "${TRAVIS_BRANCH}" != 'master' ]] || [[ "${TRAVIS_EVENT_TYPE}" == "pull_request" ]] ; then make test img=$DOCKER_IMAGE; fi
+  - if [[ "${TRAVIS_BRANCH}" == 'master' ]] && [[ "${TRAVIS_EVENT_TYPE}" != "pull_request"  ]] ; then make deploy-ci img=$DOCKER_IMAGE; fi
