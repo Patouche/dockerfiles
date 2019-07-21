@@ -9,8 +9,8 @@ matrix:
   include:
     - env: DOCKER_IMAGE="latex"
     - env: DOCKER_IMAGE="serverless-go"
+    - env: DOCKER_IMAGE="kube-manage"
 
 script:
-  - chmod +x *.sh
-  - ./build.sh $DOCKER_IMAGE
-  - ./deploy.sh $DOCKER_IMAGE
+  - if [[ "${TRAVIS_BRANCH}" != 'master' ]] ; then make test img=$DOCKER_IMAGE; fi
+  - if [[ "${TRAVIS_BRANCH}" == 'master' ]] ; then make deploy-ci img=$DOCKER_IMAGE; fi

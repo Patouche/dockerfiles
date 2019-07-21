@@ -5,15 +5,21 @@ Docker image to build LaTeX presentation.
 ## Usage :
 
 ```bash
-docker run patouche/latex
+# To run this image, you can use 
+docker run \
+    patouche/latex
+
+# To install extra latex packages on start, set a file name tex.packages
+docker run \
+    -v tex.packages:/opt/latex/tex.packages \
+    patouche/latex
+
+# To compile a tex file,
+docker run \
+    -v $(pwd):/opt/latex/ \
+    patouche/latex
+    pdflatex \
+        -halt-on-error \
+        --output-directory /opt/latex/build /opt/latex/build/test.tex
 ```
 
-## Build :
-
-Locally, you can build and test image with the following command line :
-
-```bash
-export IMG_DOCKER_TAG=latex
-docker build -t ${IMG_DOCKER_TAG} .
-./test.dockerimg.sh ${IMG_DOCKER_TAG}
-```
