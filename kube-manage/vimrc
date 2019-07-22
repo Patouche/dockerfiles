@@ -1,0 +1,28 @@
+" Thanks to 
+" https://github.com/amix/vimrc
+" http://ensiwiki.ensimag.fr/index.php/Vimrc_minimal
+
+set number
+" one of colors that can be found here /usr/share/vim/vim*/colors/*.vim
+colorscheme koehler
+filetype plugin indent on
+syntax on
+set mouse=a
+set showcmd
+set autoindent
+set nocompatible
+set history=200
+set showmatch
+set hlsearch
+set incsearch
+set cursorline
+#hi Cursorline ctermbg=darkgrey guibg=#771c1c cterm=none 
+set shiftround
+set ignorecase
+filetype on
+set nofoldenable
+" Yaml
+au! BufNewFile,BufReadPost *.{yaml,yml,sls} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+" JSON
+autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
