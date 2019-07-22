@@ -1,5 +1,9 @@
 #!/usr/bin/env bats
 
+# Export to prevent several curl call
+export KUBECTL_LATEST_VERSION=${KUBECTL_LATEST_VERSION:-$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)}
+export HELM_LATEST_VERSION=${HELM_LATEST_VERSION:-$(curl -so /dev/null -w '%{redirect_url}' https://github.com/helm/helm/releases/latest | grep -o '[^/]*$')}
+export RANCHER_LATEST_VERSION=${RANCHER_LATEST_VERSION:-$(curl -so /dev/null -w '%{redirect_url}' https://github.com/rancher/cli/releases/latest | grep -o '[^/]*$')}
 
 @test "should run as user kube" {
     run docker run --rm ${IMAGE_NAME} whoami
@@ -19,22 +23,22 @@
     [[ "$output" == *"/zsh" ]]
 }
 
-@test "should kubectl be installed with 1.15.1 version" {
+@test "should kubectl be installed with ${KUBECTL_LATEST_VERSION} version" {
     run docker run --rm ${IMAGE_NAME} kubectl version --client=true --short=true
     [ "$status" -eq 0 ]
-    [ "$output" = "Client Version: v1.15.1" ]
+    [ "$output" = "Client Version: ${KUBECTL_LATEST_VERSION}" ]
 }
 
-@test "should helm be installed with 2.14.2 version" {
+@test "should helm be installed with ${HELM_LATEST_VERSION} version" {
     run docker run --rm ${IMAGE_NAME} helm version -c --short
     [ "$status" -eq 0 ]
-    [ "$output" = "Client: v2.14.2+ga8b13cc" ]
+    [ "$output" = "Client: ${HELM_LATEST_VERSION}+ga8b13cc" ]
 }
 
-@test "should rancher be installed with 2.2.0 version" {
+@test "should rancher be installed with ${RANCHER_LATEST_VERSION} version" {
     run docker run --rm ${IMAGE_NAME} rancher --version
     [ "$status" -eq 0 ]
-    [ "$output" = "rancher version v2.2.0" ]
+    [ "$output" = "rancher version ${RANCHER_LATEST_VERSION}" ]
 }
 
 @test "should zsh be installed with 5.7.1 version" {

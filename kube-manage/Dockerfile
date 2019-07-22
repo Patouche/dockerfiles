@@ -13,7 +13,7 @@ ARG RANCHER_CLI_VERSION=2.2.0
 ARG TARGET_BIN_DIR=/usr/local/bin
 
 RUN \
-    apk add --no-cache openssh openssl curl ca-certificates zsh jq git vim musl-dev go
+    apk add --no-cache sed openssh openssl curl ca-certificates zsh jq git vim musl-dev go
 
 RUN \
     curl -sSL -o ${TARGET_BIN_DIR}/kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
@@ -42,13 +42,16 @@ RUN \
 
 RUN \
     git clone --depth=1 --branch master https://github.com/robbyrussell/oh-my-zsh.git /opt/oh-my-zsh && \
-    go get gopkg.in/mikefarah/yq.v2 
+    go get gopkg.in/mikefarah/yq.v2
 
 WORKDIR ${KUBE_HOME}
 USER ${KUBE_USER}
 
 COPY vimrc .virmrc
 COPY zshrc .zshrc
+
+RUN \
+    mkdir -p .oh-my-zsh/cache
 
 CMD [ "zsh" ]
 # DO IT IN USER K8S - MANAGE

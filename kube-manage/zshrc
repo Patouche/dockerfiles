@@ -1,3 +1,6 @@
+# Set zsh cache dir 
+export ZSH_CACHE_DIR=/kube/.oh-my-zsh/cache
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -68,7 +71,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git kops kube-ps1 kubectl helm)
+plugins=(git kops kube-ps1 helm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -97,3 +100,6 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+source <(kubectl completion zsh)
+alias k="kubectl"
