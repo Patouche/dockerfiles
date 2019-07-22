@@ -1,20 +1,20 @@
 #!/usr/bin/env bats
 
 
-@test "should run as user kube-cli" {
+@test "should run as user kube" {
     run docker run --rm ${IMAGE_NAME} whoami
     [ "$status" -eq 0 ] 
-    [ "${lines[0]}" == "kube-cli" ]
+    [ "${lines[0]}" == "kube" ]
 }
 
-@test "should run in /opt/kube" {
+@test "should run in /kube" {
     run docker run --rm ${IMAGE_NAME} pwd
     [ "$status" -eq 0 ] 
-    [ "${lines[0]}" == "/opt/kube" ]
+    [ "${lines[0]}" == "/kube" ]
 }
 
 @test "should run with zsh shell" {
-    run docker run --rm ${IMAGE_NAME} grep 'kube-cli' /etc/passwd
+    run docker run --rm ${IMAGE_NAME} grep 'kube' /etc/passwd
     [ "$status" -eq 0 ]
     [[ "$output" == *"/zsh" ]]
 }
