@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
+IMAGE_NAME=patouche/kube-manage:1.12
 # Export to prevent several curl call
-export KUBECTL_LATEST_VERSION=${KUBECTL_LATEST_VERSION:-$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)}
 export HELM_LATEST_VERSION=${HELM_LATEST_VERSION:-$(curl -so /dev/null -w '%{redirect_url}' https://github.com/helm/helm/releases/latest | grep -o '[^/]*$')}
 export RANCHER_LATEST_VERSION=${RANCHER_LATEST_VERSION:-$(curl -so /dev/null -w '%{redirect_url}' https://github.com/rancher/cli/releases/latest | grep -o '[^/]*$')}
 
@@ -11,10 +11,10 @@ export RANCHER_LATEST_VERSION=${RANCHER_LATEST_VERSION:-$(curl -so /dev/null -w 
     [ "${lines[0]}" == "kube" ]
 }
 
-@test "should run in /kube" {
+@test "should run in /cluster" {
     run docker run --rm ${IMAGE_NAME} pwd
     [ "$status" -eq 0 ] 
-    [ "${lines[0]}" == "/kube" ]
+    [ "${lines[0]}" == "/cluster" ]
 }
 
 @test "should run with zsh shell" {
@@ -23,10 +23,10 @@ export RANCHER_LATEST_VERSION=${RANCHER_LATEST_VERSION:-$(curl -so /dev/null -w 
     [[ "$output" == *"/zsh" ]]
 }
 
-@test "should kubectl be installed with ${KUBECTL_LATEST_VERSION} version" {
+@test "should kubectl be installed with 1.12.10 version" {
     run docker run --rm ${IMAGE_NAME} kubectl version --client=true --short=true
     [ "$status" -eq 0 ]
-    [ "$output" = "Client Version: ${KUBECTL_LATEST_VERSION}" ]
+    [ "$output" = "Client Version: v1.12.10" ]
 }
 
 @test "should helm be installed with ${HELM_LATEST_VERSION} version" {

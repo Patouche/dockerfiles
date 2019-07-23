@@ -37,7 +37,7 @@ setup() {
 @test "should generate a beamer presentation" {
    skip "Should not failed ..."
   run docker run --rm \
-    -v ${BATS_TEST_DIRNAME}/test-beamer:/opt/latex/build \
+    -v ${BATS_TEST_DIRNAME}/beamer:/opt/latex/build \
     ${IMAGE_NAME} \
     pdflatex \
       -halt-on-error \
@@ -49,8 +49,8 @@ setup() {
   skip "This should not failed ... But there is a error :  I can't write on file test.log."
   set -x
   run docker run --rm \
-    -v ${BATS_TEST_DIRNAME}/test-packages:/opt/latex/build \
-    -v ${BATS_TEST_DIRNAME}/test-packages/test.packages:/opt/latex/tex.packages \
+    -v ${BATS_TEST_DIRNAME}/packages:/opt/latex/build \
+    -v ${BATS_TEST_DIRNAME}/packages/test.packages:/opt/latex/tex.packages \
     ${IMAGE_NAME} \
     pdflatex \
       -halt-on-error \

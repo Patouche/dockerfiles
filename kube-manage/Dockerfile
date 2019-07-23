@@ -5,15 +5,14 @@ LABEL maintainer="Patrick Allain <patralla@gmail.com>"
 # https://storage.googleapis.com/kubernetes-release/release/stable.txt
 ARG KUBE_USER=kube
 ARG KUBE_GROUP=kube
-ARG KUBE_HOME=/kube
+ARG KUBE_HOME=/cluster
 ARG KUBECTL_VERSION=1.15.1
 ARG HELM_VERSION=2.14.2
-ARG GO_VERSION=1.12
 ARG RANCHER_CLI_VERSION=2.2.0
 ARG TARGET_BIN_DIR=/usr/local/bin
 
 RUN \
-    apk add --no-cache sed openssh openssl curl ca-certificates zsh jq git vim musl-dev go
+    apk add --no-cache sed openssh openssl curl ca-certificates zsh jq git vim
 
 RUN \
     curl -sSL -o ${TARGET_BIN_DIR}/kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
@@ -35,14 +34,8 @@ RUN \
     addgroup ${KUBE_GROUP} && \
     adduser -D -G ${KUBE_GROUP} -h ${KUBE_HOME} -s $(which zsh) ${KUBE_USER} && \
     chown ${KUBE_USER}:${KUBE_GROUP} ${KUBE_HOME} && \
-    curl -sSL -o /tmp/oh-my-zsh.install.sh https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh && \
-    su ${KUBE_USER} -c 'sh /tmp/oh-my-zsh.install.sh' > /dev/null 2>&1 && \
-    rm /tmp/oh-my-zsh.install.sh && \
-    rm -f /var/cache/apk/*
-
-RUN \
     git clone --depth=1 --branch master https://github.com/robbyrussell/oh-my-zsh.git /opt/oh-my-zsh && \
-    go get gopkg.in/mikefarah/yq.v2
+    rm -f /var/cache/apk/*
 
 WORKDIR ${KUBE_HOME}
 USER ${KUBE_USER}
