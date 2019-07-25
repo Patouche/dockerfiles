@@ -1,4 +1,4 @@
-.PHONY: help images build test deploy
+.PHONY: help images .valid build test deploy deploy-ci
 .DEFAULT_GOAL: help
 
 SHELL := /bin/bash

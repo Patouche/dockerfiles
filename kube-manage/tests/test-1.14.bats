@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 IMAGE_NAME=patouche/kube-manage:1.14
+
 # Export to prevent several curl call
 export HELM_LATEST_VERSION=${HELM_LATEST_VERSION:-$(curl -so /dev/null -w '%{redirect_url}' https://github.com/helm/helm/releases/latest | grep -o '[^/]*$')}
 export RANCHER_LATEST_VERSION=${RANCHER_LATEST_VERSION:-$(curl -so /dev/null -w '%{redirect_url}' https://github.com/rancher/cli/releases/latest | grep -o '[^/]*$')}

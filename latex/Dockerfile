@@ -24,6 +24,7 @@ RUN \
     texlive-pstricks \
     texlive-publishers \
     texlive-fonts-recommended \
+    texlive-fonts-extra \
     texlive-generic-recommended \
     texlive-generic-recommended \
     texlive-latex-recommended \
