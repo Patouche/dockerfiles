@@ -44,17 +44,3 @@ setup() {
       --output-directory /latex/build /latex/build/test.tex
   [ "$status" -eq 0 ]
 }
-
-@test "should install plugins and generate a beamer presentation" {
-  skip "This should not failed ... But there is a error :  I can't write on file test.log."
-  set -x
-  run docker run --rm \
-    -v ${BATS_TEST_DIRNAME}/packages:/latex/build \
-    -v ${BATS_TEST_DIRNAME}/packages/test.packages:/latex/tex.packages \
-    ${IMAGE_NAME} \
-    pdflatex \
-      -halt-on-error \
-      --output-directory /latex/build /latex/build/test.tex
-  set +x
-  [ "$status" -eq 0 ]
-}

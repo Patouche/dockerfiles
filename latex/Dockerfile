@@ -14,6 +14,7 @@ ENV LANG="C.UTF-8"
 RUN \
   apt-get update -y && \
   apt-get install -y --no-install-recommends \
+    inotify-tools \
     tex-common \
     texlive-base \
     texlive-binaries \
@@ -47,11 +48,6 @@ RUN \
   useradd --gid ${LATEX_GROUP} --home-dir ${LATEX_HOME} ${LATEX_USER} && \
   chown ${LATEX_USER}:${LATEX_GROUP} ${LATEX_HOME}
 
-
-# Setup entrypoint to support package installation
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod ugo+x /usr/local/bin/docker-entrypoint.sh
-
 WORKDIR ${LATEX_HOME}
 USER ${LATEX_USER}
 
@@ -59,4 +55,3 @@ RUN \
   tlmgr init-usertree && \
   tlmgr update --self
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
