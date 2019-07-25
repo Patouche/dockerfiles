@@ -6,20 +6,22 @@ Docker image to build LaTeX presentation.
 
 ```bash
 # To run this image, you can use 
-docker run \
-    patouche/latex
+docker run --rm -ti \
+    patouche/latex \
+    bash
 
 # To install extra latex packages on start, set a file name tex.packages
-docker run \
-    -v tex.packages:/opt/latex/tex.packages \
-    patouche/latex
+docker run --rm -ti \
+    -v tex.packages:/latex/tex.packages \
+    patouche/latex \
+    bash
 
 # To compile a tex file,
-docker run \
-    -v $(pwd):/opt/latex/ \
+docker run --rm -ti \
+    -v $(pwd):/latex/ \
     patouche/latex
     pdflatex \
         -halt-on-error \
-        --output-directory /opt/latex/build /opt/latex/build/test.tex
+        --output-directory /latex/build /latex/build/test.tex
 ```
 

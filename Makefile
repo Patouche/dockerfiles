@@ -7,7 +7,7 @@ DOCKER_HUB_USER := patouche
 
 ALL_IMAGES := $(sort $(foreach d,$(wildcard */Dockerfile),$(d:/Dockerfile=)))
 
-help:  ## Help
+help:  ## Help me !
 	@echo "==> Help me !"
 	@echo "Target :"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  - \033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -47,3 +47,8 @@ deploy-ci: test
 			tags=($${line%%:*}); \
 			for t in $${tags[@]}; do docker push "$(DOCKER_HUB_USER)/$(img):$${t}"; done; \
 		done < $(img)/tags.txt
+
+docker-clean: ## Remove all images for current user
+	@echo "==> Cleaning docker images for user $(DOCKER_HUB_USER)"
+	@docker rmi $$(docker image ls --filter=reference='$(DOCKER_HUB_USER)/*' -q)
+	@docker rmi $$(docker image ls --filter=dangling=true -q)

@@ -2,12 +2,12 @@ FROM debian:stretch
 
 LABEL maintainer="Patrick Allain <patralla@gmail.com>"
 
-ARG LATEX_HOME=/opt/latex
+ARG LATEX_HOME=/latex
 ARG LATEX_USER=latex
 ARG LATEX_GROUP=latex
 
 # Setup environment
-ENV LATEX_HOME /opt/latex
+ENV LATEX_HOME /latex
 ENV LANG="C.UTF-8"
 
 # Install latex
