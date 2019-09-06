@@ -22,7 +22,7 @@
     run docker run --rm ${IMAGE_NAME} ls /opt/sonarqube/extensions/plugins/
     [ "$status" -eq 0 ]
     total=$(echo "$output" | grep -v README.txt | wc -l)
-    [[ "$total" == "36" ]]
+    [[ "$total" == "33" ]]
 }
 
 @test "should have sonar-scanner installed with version" {

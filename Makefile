@@ -21,7 +21,7 @@ images: ## List all images
 .valid:
 	@if [ ! -e $(img)/Dockerfile ]; then echo "Error: Image '$(img)' is not valid. Use a valid image"; exit 1; fi
 
-build: .valid ## Build docker image
+build: .valid ## Build docker image [img: the folder name of image to build]
 	@echo "==> Build docker image : $(img)"
 	@cd $(img); \
 		while IFS= read -r line; do \
@@ -30,12 +30,12 @@ build: .valid ## Build docker image
 			docker build $${tags} $${build_args} . ; \
 		done < tags.txt
 
-test: build ## Test the docker image with
+test: build ## Test the docker image with bats [img: the folder name of image to build]
 	@echo "==> Testing docker image : $(img) using bats (https://github.com/bats-core/bats-core)"
 	@cd $(img); \
 		IMAGE_NAME="$(DOCKER_HUB_USER)/$(img):latest" bats -t tests/
 
-deploy: test ## Deploy a docker image
+deploy: test ## Deploy a docker image [img: the folder name of image to build]
 	@echo "==> Deploy Image : $(img)"
 	@docker push "$(DOCKER_HUB_USER)/$(img):$$(cat $(img)/version.txt)
 	@docker push "$(DOCKER_HUB_USER)/$(img):latest
