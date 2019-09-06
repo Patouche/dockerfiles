@@ -15,6 +15,10 @@ RUN \
     ln -s ${SONAR_SCANNER_DIR}/sonar-scanner-cli/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
     rm ${SONAR_SCANNER_DIR}/sonar-scanner-cli.zip
 
+RUN \
+    bash $(curl -sL https://deb.nodesource.com/setup_10.x)
+    && apt-get install -y nodejs
+
 COPY plugins.sh ${SONARQUBE_HOME}/extensions/plugins.sh
 
 RUN \
