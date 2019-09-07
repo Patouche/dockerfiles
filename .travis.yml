@@ -14,5 +14,5 @@ matrix:
 
 # don't rebuild image : git diff HEAD~1 -- latex | wc -l
 script:
-  - if [[ "${TRAVIS_BRANCH}" != 'master' ]] || [[ "${TRAVIS_EVENT_TYPE}" == "pull_request" ]] ; then make test img=$DOCKER_IMAGE; fi
-  - if [[ "${TRAVIS_BRANCH}" == 'master' ]] && [[ "${TRAVIS_EVENT_TYPE}" != "pull_request"  ]] ; then make deploy-ci img=$DOCKER_IMAGE; fi
+  - if [[ "${TRAVIS_BRANCH}" != 'master' ]] || [[ "${TRAVIS_EVENT_TYPE}" == "pull_request" ]] ; then make test folder=$DOCKER_IMAGE; fi
+  - if [[ "${TRAVIS_BRANCH}" == 'master' ]] && [[ "${TRAVIS_EVENT_TYPE}" != "pull_request"  ]] ; then make deploy-ci folder=$DOCKER_IMAGE; fi

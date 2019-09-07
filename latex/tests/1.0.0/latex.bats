@@ -4,18 +4,6 @@ setup() {
   rm -vf ${BATS_TEST_DIRNAME}/*/*.{aux,log,nav,out,pdf,snm,toc,vrb} || true
 }
 
-@test "should run a user latex" {
-    run docker run --rm ${IMAGE_NAME} whoami
-    [ "$status" -eq 0 ]
-    [ "$output" = "latex" ]
-}
-
-@test "should run in workdir /latex" {
-    run docker run --rm ${IMAGE_NAME} pwd
-    [ "$status" -eq 0 ]
-    [ "$output" = "/latex" ]
-}
-
 @test "should have tex installed with 3.14159265 version" {
     run docker run --rm ${IMAGE_NAME} tex --version
     [ "$status" -eq 0 ]

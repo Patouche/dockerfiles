@@ -7,10 +7,10 @@
     [[ "$output" == *"go1.12 linux/amd64" ]]
 }
 
-@test "should node be installed with version 10.16.0" {
+@test "should node be installed with version 10.16.3" {
     run docker run --rm ${IMAGE_NAME} node --version
     [ "$status" -eq 0 ]
-    [ "$output" = "v10.16.0" ]
+    [ "$output" = "v10.16.3" ]
 }
 
 @test "should npm be installed with version 6.9.0" {

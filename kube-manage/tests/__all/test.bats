@@ -1,7 +1,5 @@
 #!/usr/bin/env bats
 
-IMAGE_NAME=patouche/kube-manage:1.12
-
 # Export to prevent several curl call
 export HELM_LATEST_VERSION=${HELM_LATEST_VERSION:-$(curl -so /dev/null -w '%{redirect_url}' https://github.com/helm/helm/releases/latest | grep -o '[^/]*$')}
 export RANCHER_LATEST_VERSION=${RANCHER_LATEST_VERSION:-$(curl -so /dev/null -w '%{redirect_url}' https://github.com/rancher/cli/releases/latest | grep -o '[^/]*$')}
@@ -24,16 +22,10 @@ export RANCHER_LATEST_VERSION=${RANCHER_LATEST_VERSION:-$(curl -so /dev/null -w 
     [[ "$output" == *"/zsh" ]]
 }
 
-@test "should kubectl be installed with 1.12.10 version" {
-    run docker run --rm ${IMAGE_NAME} kubectl version --client=true --short=true
-    [ "$status" -eq 0 ]
-    [ "$output" = "Client Version: v1.12.10" ]
-}
-
 @test "should helm be installed with ${HELM_LATEST_VERSION} version" {
     run docker run --rm ${IMAGE_NAME} helm version -c --short
     [ "$status" -eq 0 ]
-    [ "$output" = "Client: ${HELM_LATEST_VERSION}+ga8b13cc" ]
+    [ "$output" = "Client: ${HELM_LATEST_VERSION}+g0e7f3b6" ]
 }
 
 @test "should rancher be installed with ${RANCHER_LATEST_VERSION} version" {
